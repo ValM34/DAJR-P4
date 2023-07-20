@@ -24,27 +24,24 @@ class Form {
       this.checkbox1IsValid()
     ) {
       result.success = true;
+      result.errors.firstname = null;
+      result.errors.lastname = null;
+      result.errors.email = null;
+      result.errors.birthdate = null;
+      result.errors.quantity = null;
+      result.errors.location = null; 
+      result.errors.checkbox1 = null;
+
       return result;
     }
 
-    if(this.firstnameIsValid() === false) {
-      result.errors.firstname = "2 caractères au minimum";
-    }
-    if(this.lastnameIsValid() === false) {
-      result.errors.lastname = "2 caractères au minimum";
-    }
-    if(this.emailIsValid() === false) {
-      result.errors.email = "Veuillez mentionner un email valide";
-    }
-    if(this.quantityIsValid() === false) {
-      result.errors.quantity = "La quantité indiqué doit être un nombre";
-    }
-    if(this.locationIsValid() === false) {
-      result.errors.quantity = "Veuillez sélectionner une ville";
-    }
-    if(this.checkbox1IsValid() === false) {
-      result.errors.checkbox1 = "Veuillez accepter les conditions générales";
-    }
+    result.errors.firstname = this.firstnameIsValid() === false ? "Veuillez entrer 2 caractères ou plus pour le champ du prénom." : null;
+    result.errors.lastname = this.lastnameIsValid() === false ? "Veuillez entrer 2 caractères ou plus pour le champ du nom." : null;
+    result.errors.email = this.emailIsValid() === false ? "Veuillez renseigner un email valide." : null;
+    result.errors.birthdate = this.birthdateIsValid() === false ? "Vous devez entrer votre date de naissance." : null;
+    result.errors.quantity = this.quantityIsValid() === false ? "La quantité indiquée doit être un nombre." : null;
+    result.errors.location = this.locationIsValid() === false ? "Vous devez choisir une option." : null;
+    result.errors.checkbox1 = this.checkbox1IsValid() === false ? "Vous devez vérifier que vous acceptez les termes et conditions." : null;
 
     result.success = false;
     return result;
@@ -72,8 +69,16 @@ class Form {
     return false;
   }
 
+  birthdateIsValid() {
+    const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
+    if(DATE_REGEX.test(this.birthdate)) {
+      return true;
+    }
+    return false;
+  }
+
   quantityIsValid() {
-    if(this.quantity >= 0 && this.quantity !== "") {
+    if(this.quantity >= 1 && this.quantity !== "") {
       return true;
     }
     return false;

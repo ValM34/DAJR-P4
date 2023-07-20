@@ -12,6 +12,7 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const closeModalBtns = document.querySelectorAll(".close-event");
+const body = document.querySelector("body");
 // DOM Elements (inputs)
 const firstname = document.querySelector("#firstname");
 const lastname = document.querySelector("#lastname");
@@ -42,12 +43,14 @@ closeModalBtns.forEach(closeModalBtn => {
     modalbg.style.display = "none";
     step1.style.display = "flex";
     step2.style.display = "none";
+    body.style.overflowY = "auto";
   });
 })
 
 // launch modal form
 function launchModal() {
   modalbg.style.display = "flex";
+  body.style.overflowY = "hidden";
 }
 
 // verify if form is valid

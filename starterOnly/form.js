@@ -19,6 +19,7 @@ class Form {
       this.firstnameIsValid() &&
       this.lastnameIsValid() &&
       this.emailIsValid() &&
+      this.birthdateIsValid() &&
       this.quantityIsValid() &&
       this.locationIsValid() &&
       this.checkbox1IsValid()

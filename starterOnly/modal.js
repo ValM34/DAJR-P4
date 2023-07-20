@@ -11,7 +11,7 @@ function editNav() {
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
-const closeModalBtns = document.querySelectorAll(".close");
+const closeModalBtns = document.querySelectorAll(".close-event");
 // DOM Elements (inputs)
 const firstname = document.querySelector("#firstname");
 const lastname = document.querySelector("#lastname");
@@ -29,19 +29,25 @@ const birthdateContainer = document.querySelector('#birthdate_container');
 const quantityContainer = document.querySelector('#quantity_container');
 const locationContainer = document.querySelector('#location_container');
 const checkboxContainer = document.querySelector('#checkbox_container');
-
+// DOM Elements (modal content)
+const step1 = document.querySelector('#step_1');
+const step2 = document.querySelector('#step_2');
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // Close modal event
 closeModalBtns.forEach(closeModalBtn => {
-  closeModalBtn.addEventListener("click", () => modalbg.style.display = "none");
+  closeModalBtn.addEventListener("click", () => {
+    modalbg.style.display = "none";
+    step1.style.display = "flex";
+    step2.style.display = "none";
+  });
 })
 
 // launch modal form
 function launchModal() {
-  modalbg.style.display = "block";
+  modalbg.style.display = "flex";
 }
 
 // verify if form is valid
@@ -65,8 +71,6 @@ function validateForm() {
     checkbox1.checked,
     checkbox2.checked,
   );
-
-  console.log(birthdate.value)
 
   // Handle error message
   function handleErrorMsg(containerSelector, errorMsg) {
@@ -99,7 +103,8 @@ modalForm.addEventListener("submit", (e) => {
   let isValidate = validateForm();
   if(isValidate) {
     // Close modal
-    modalbg.style.display = "none";
+    step1.style.display = "none";
+    step2.style.display = "flex";
   }
 })
 

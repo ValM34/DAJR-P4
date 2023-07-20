@@ -11,9 +11,33 @@ function editNav() {
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
+const closeModalBtn = document.querySelector("#close_modal");
+// DOM Elements (inputs)
+const firstname = document.querySelector("#firstname");
+const lastname = document.querySelector("#lastname");
+const email = document.querySelector("#email");
+const birthdate = document.querySelector("#birthdate");
+const quantity = document.querySelector("#quantity");
+const checkbox1 = document.querySelector("#checkbox1");
+const checkbox2 = document.querySelector("#checkbox2");
+let locationInputsArray = document.querySelectorAll("input[type=radio]");
+// DOM Elements (form input containers)
+const firstnameContainer = document.querySelector('#firstname_container');
+const lastnameContainer = document.querySelector('#lastname_container');
+const emailContainer = document.querySelector('#email_container');
+const birthdateContainer = document.querySelector('#birthdate_container');
+const quantityContainer = document.querySelector('#quantity_container');
+const locationContainer = document.querySelector('#location_container');
+const checkboxContainer = document.querySelector('#checkbox_container');
+
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
+
+// Close modal event
+closeModalBtn.addEventListener("click", () => {
+  modalbg.style.display = "none";
+})
 
 // launch modal form
 function launchModal() {
@@ -22,15 +46,7 @@ function launchModal() {
 
 // verify if form is valid
 function validateForm() {
-  // select inputs
-  const firstname = document.querySelector("#firstname");
-  const lastname = document.querySelector("#lastname");
-  const email = document.querySelector("#email");
-  const birthdate = document.querySelector("#birthdate");
-  const quantity = document.querySelector("#quantity");
-  const checkbox1 = document.querySelector("#checkbox1");
-  const checkbox2 = document.querySelector("#checkbox2");
-  let locationInputsArray = document.querySelectorAll("input[type=radio]");
+  // Find the value of the location element selected
   let location = "";
   locationInputsArray.forEach(element => {
     if(element.checked) {
@@ -62,13 +78,13 @@ function validateForm() {
     }
   }
 
-  handleErrorMsg(document.querySelector('#firstname_container'), form.isValid().errors.firstname);
-  handleErrorMsg(document.querySelector('#lastname_container'), form.isValid().errors.lastname);
-  handleErrorMsg(document.querySelector('#email_container'), form.isValid().errors.email);
-  handleErrorMsg(document.querySelector('#birthdate_container'), form.isValid().errors.birthdate);
-  handleErrorMsg(document.querySelector('#quantity_container'), form.isValid().errors.quantity);
-  handleErrorMsg(document.querySelector('#location_container'), form.isValid().errors.location);
-  handleErrorMsg(document.querySelector('#checkbox_container'), form.isValid().errors.checkbox1);
+  handleErrorMsg(firstnameContainer, form.isValid().errors.firstname);
+  handleErrorMsg(lastnameContainer, form.isValid().errors.lastname);
+  handleErrorMsg(emailContainer, form.isValid().errors.email);
+  handleErrorMsg(birthdateContainer, form.isValid().errors.birthdate);
+  handleErrorMsg(quantityContainer, form.isValid().errors.quantity);
+  handleErrorMsg(locationContainer, form.isValid().errors.location);
+  handleErrorMsg(checkboxContainer, form.isValid().errors.checkbox1);
   
   // Si le formulaire est valide, retourner true
   if(form.isValid().success === true) {

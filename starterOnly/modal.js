@@ -11,7 +11,7 @@ function editNav() {
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
-const closeModalBtn = document.querySelector("#close_modal");
+const closeModalBtns = document.querySelectorAll(".close");
 // DOM Elements (inputs)
 const firstname = document.querySelector("#firstname");
 const lastname = document.querySelector("#lastname");
@@ -35,8 +35,8 @@ const checkboxContainer = document.querySelector('#checkbox_container');
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // Close modal event
-closeModalBtn.addEventListener("click", () => {
-  modalbg.style.display = "none";
+closeModalBtns.forEach(closeModalBtn => {
+  closeModalBtn.addEventListener("click", () => modalbg.style.display = "none");
 })
 
 // launch modal form
@@ -95,8 +95,11 @@ function validateForm() {
 
 const modalForm = document.querySelector("#modal_form");
 modalForm.addEventListener("submit", (e) => {
-  if(!validateForm()){
-    e.preventDefault();
+  e.preventDefault();
+  let isValidate = validateForm();
+  if(isValidate) {
+    // Close modal
+    modalbg.style.display = "none";
   }
 })
 

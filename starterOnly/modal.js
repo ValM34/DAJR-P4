@@ -22,83 +22,65 @@ function launchModal() {
 
 // verify if form is valid
 function validateForm() {
-  // name
+  // select inputs
   const firstname = document.querySelector("#firstname");
   const lastname = document.querySelector("#lastname");
   const email = document.querySelector("#email");
   const birthdate = document.querySelector("#birthdate");
   const quantity = document.querySelector("#quantity");
-
-
   const checkbox1 = document.querySelector("#checkbox1");
   const checkbox2 = document.querySelector("#checkbox2");
-  // Manquera location
-
-
-  // LOCAtion
-  let radio = document.querySelectorAll("input[type=radio]");
-  let location = {value: ""};
-
-  radio.forEach(element => {
+  let locationInputsArray = document.querySelectorAll("input[type=radio]");
+  let location = "";
+  locationInputsArray.forEach(element => {
     if(element.checked) {
-      location.value = element.value;
+      location = element.value;
     }
   });
-  // LOCATION
   
+  // Instanciate Form
   const form = new Form(
     firstname.value,
     lastname.value,
     email.value,
     birthdate.value,
     quantity.value,
-    location.value,
+    location,
     checkbox1.checked,
     checkbox2.checked,
   );
+
+  console.log(birthdate.value)
+
+  // Handle error message
+  function handleErrorMsg(containerSelector, errorMsg) {
+    if(errorMsg !== null) {
+      containerSelector.setAttribute("data-error", errorMsg);
+      containerSelector.setAttribute("data-error-visible", "true");
+    } else {
+      containerSelector.setAttribute("data-error-visible", "false");
+    }
+  }
+
+  handleErrorMsg(document.querySelector('#firstname_container'), form.isValid().errors.firstname);
+  handleErrorMsg(document.querySelector('#lastname_container'), form.isValid().errors.lastname);
+  handleErrorMsg(document.querySelector('#email_container'), form.isValid().errors.email);
+  handleErrorMsg(document.querySelector('#birthdate_container'), form.isValid().errors.birthdate);
+  handleErrorMsg(document.querySelector('#quantity_container'), form.isValid().errors.quantity);
+  handleErrorMsg(document.querySelector('#location_container'), form.isValid().errors.location);
+  handleErrorMsg(document.querySelector('#checkbox_container'), form.isValid().errors.checkbox1);
   
+  // Si le formulaire est valide, retourner true
   if(form.isValid().success === true) {
     return true;
   }
-
-  // Afficher les messages d'erreur ici
-  if(form.isValid().errors.firstname) {
-    /*let firstnameErrorMsg = document.createElement("div");
-    firstnameErrorMsg.innerText = form.isValid().errors.firstname;
-
-    document.querySelector(".formData").appendChild(firstnameErrorMsg);
-
-*/
-    console.log(form.isValid().errors.firstname);
-  }
-
-  if(form.isValid().errors.lastname) {
-    console.log(form.isValid().errors.lastname);
-  }
-  if(form.isValid().errors.email) {
-    console.log(form.isValid().errors.email);
-  }
-  if(form.isValid().errors.location) {
-    console.log(form.isValid().errors.location);
-  }
-  if(form.isValid().errors.quantity) {
-    console.log(form.isValid().errors.quantity);
-  }
-
-
   return false;
 }
 
-let i = 0;
-
 const modalForm = document.querySelector("#modal_form");
 modalForm.addEventListener("submit", (e) => {
-  e.preventDefault()
   if(!validateForm()){
     e.preventDefault();
-    console.log('formulaire erroné')
   }
 })
-
-
 
